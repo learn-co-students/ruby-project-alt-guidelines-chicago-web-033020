@@ -14,12 +14,13 @@ puts "View  Create  Update  Delete"
 user_input = gets.chomp.downcase
 
 while user_input != "exit"
+
     if user_input == "view"
-        cli.handleStockSelection
+        cli.viewSelection
     elsif user_input == "create"
-        cli.createPurchase
+        cli.createSelection
     elsif user_input == "update"
-        cli.updateOptions
+        cli.updateSelection
     elsif  user_input == "delete"
         cli.deleteOptions
     end
@@ -28,6 +29,7 @@ while user_input != "exit"
 
     puts "\e[H\e[2J"
     user_input = cli.endRepeat
+
 end 
 # cli.run
 # binding.pry

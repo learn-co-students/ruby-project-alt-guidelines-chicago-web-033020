@@ -3,6 +3,6 @@ class Purchase < ActiveRecord::Base
     belongs_to :stock
 
     def to_s
-        "#{self.id}: shareholder name: #{self.shareholder.name}, company name: #{self.stock.company_name}, quantity: #{self.quantity}"
+        "#{self.id}: Shareholder_Name: #{self.shareholder.name}, Company_Name: #{self.stock.company_name}, Quantity: #{self.quantity}"
     end
 end
