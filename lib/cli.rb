@@ -4,14 +4,14 @@ class CommandLineInterface
         puts "\e[H\e[2J"
         puts "What would you like to view?"
         puts "Purchases  Shareholders  Stocks"
-        userViewSelector = gets.chomp.capitalize.delete_suffix("s")
-        if userViewSelector == "Purchase"
+        userViewSelector = gets.chomp.capitalize
+        if userViewSelector == "Purchases"
             puts Purchase.all
             puts "\nNow showing Purchase list."
-        elsif userViewSelector == "Shareholder"
+        elsif userViewSelector == "Shareholders"
             puts Shareholder.all
             puts "\nNow showing Shareholder list"
-        elsif userViewSelector == "Stock"
+        elsif userViewSelector == "Stocks"
             puts Stock.all
             puts "\nNow showing Stock list"
         end
@@ -124,7 +124,7 @@ class CommandLineInterface
         puts "You chose Update - what do you want to update?"
         puts "Shareholders  Stocks  Purchases"
         selectViewOpt = gets.chomp.capitalize
-        if selectViewOpt == "Shareholder"
+        if selectViewOpt == "Shareholders"
             puts Shareholder.all
             puts "You chose Shareholders, who do you wish to update?(enter name)"
             getShareholderName = gets.chomp.capitalize
@@ -217,10 +217,10 @@ class CommandLineInterface
             elsif selectStockVerify == "No"
                 puts "You chose no"
             end
-        elsif selectViewOpt == "Purchase"
+        elsif selectViewOpt == "Purchases"
             puts Purchase.all
             puts ". . ."
-            puts "You chose #{selectViewOpt}, what do you wish to update?(enter ID)"
+            puts "You chose Purchases, what do you wish to update?(enter ID)"
             selectPurchaseID = gets.chomp
             selectFinder = Purchase.find_by(id: selectPurchaseID)
             puts "You chose: #{selectFinder}"
@@ -238,24 +238,58 @@ class CommandLineInterface
         end
     end
 
-    def deleteOptions
+    def deleteSelection
         puts "\e[H\e[2J"
-        puts "You chose Delete"
-        puts "The only delete option available atm are the Purchases - would you like to proceed?"
-        selectDeleteChoice = gets.chomp.capitalize
-        if selectDeleteChoice == "Yes"
+        puts "You chose Delete - what would you like to delete?"
+        puts "Purchases  Shareholders  Stocks"
+        getDeletePrompt = gets.chomp.capitalize
+        if getDeletePrompt == "Purchases"
             puts Purchase.all
-            puts "Which record would you like to delete? (enter ID)"
-            selectorDeleteID = gets.chomp
-            finderDeleteID = Purchase.find_by(id: selectorDeleteID)
-            puts "You chose: #{finderDeleteID} - is this correct?"
-            confirmDelete = gets.chomp.capitalize
-            if confirmDelete == "Yes"
-                puts ". . ."
-                finderDeleteID.destroy
-                puts "*Purchase Deleted*"
-                puts Purchase.all 
-                puts "Now showing: updated purchases list"
+            puts "Now showing current list."
+            puts "Which purchase would you like to delete? (enter ID)"
+            getPurchaseID = gets.chomp.to_i
+            getPurchase = Purchase.find_by(id: getPurchaseID)
+            puts "You chose: #{getPurchase} - is this correct?"
+            getPurchaseVerify = gets.chomp.capitalize
+            if getPurchaseVerify == "Yes"
+                puts ". . . Processing . . ."
+                getPurchase.destroy
+                puts Purchase.all
+                puts "Delete Success. Now showing updated Purchase list."
+            elsif getPurchaseVerify == "No"
+                puts "You chose no"
+            end
+        elsif getDeletePrompt == "Shareholders"
+            puts Shareholder.all
+            puts "Now showing current Shareholder list"
+            puts "Which shareholder would you like to delete? (enter ID)"
+            getShareholderID = gets.chomp.to_i
+            getShareholder = Shareholder.find_by(id: getShareholderID)
+            puts "You chose #{getShareholder} - is this correct?"
+            getShareholderVerify = gets.chomp.capitalize
+            if getShareholderVerify == "Yes"
+                puts ". . . Processing . . ."
+                getShareholder.destroy
+                puts Shareholder.all
+                puts "Delete Success. Now showing updated Shareholder list"
+            elsif getShareholder == "No"
+                puts "You chose no"
+            end
+        elsif getDeletePrompt == "Stocks"
+            puts Stock.all
+            puts "Now showing current Stock list"
+            puts "Which stock would you like to update? (enter ID)"
+            getStockID = gets.chomp.to_i
+            getStock = Stock.find_by(id: getStockID)
+            puts "You chose #{getStock} - is this correct?"
+            getStockVerify = gets.chomp.capitalize
+            if getStockVerify == "Yes"
+                puts ". . . Processing . . ."
+                getStock.destroy
+                puts Stock.all
+                puts "Delete success. Now showing updated Stock list"
+            elsif getStockVerify == "No"
+                puts "You chose no"
             end
         end
     end

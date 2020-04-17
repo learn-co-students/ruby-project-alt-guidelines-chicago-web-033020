@@ -22,7 +22,7 @@ while user_input != "exit"
     elsif user_input == "update"
         cli.updateSelection
     elsif  user_input == "delete"
-        cli.deleteOptions
+        cli.deleteSelection
     end
 
     cli.waitForEnter
