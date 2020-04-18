@@ -31,5 +31,3 @@ while user_input != "exit"
     user_input = cli.endRepeat
 
 end 
-# cli.run
-# binding.pry
